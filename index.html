@@ -1,13 +1,25 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>configurator-lays-project-2025</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
-</html>
+<body>
+  <div id="app">
+    <h1>Lay's Configurator</h1>
+
+    <div>
+      <label>Smaak:</label>
+      <select id="flavour">
+        <option value="Paprika">Paprika</option>
+        <option value="Naturel">Naturel</option>
+        <option value="Sweet Chili">Sweet Chili</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Kleur zak:</label>
+      <input type="color" id="color" value="#ff0000" />
+    </div>
+
+    <button id="saveBtn">Verzend configuratie</button>
+  </div>
+
+  <canvas id="three-canvas"></canvas>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
