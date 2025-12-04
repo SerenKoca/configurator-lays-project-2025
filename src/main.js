@@ -59,7 +59,7 @@ const initialColor = new THREE.Color(colorInput.value);
 //GLB-model
 const loader = new GLTFLoader();
 loader.load(
-  "/public/assets/models/bag.glb", 
+  "./public/assets/models/bag.glb", 
   (gltf) => {
     bagMesh = gltf.scene;
     bagMesh.traverse((child) => {
