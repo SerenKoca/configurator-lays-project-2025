@@ -1,25 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lays Configurator</title>
+  <link rel="stylesheet" href="src/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap"
+    rel="stylesheet"/>
+</head>
+
 <body>
   <div id="app">
-    <h1>Lay's Configurator</h1>
+    <header class="header">
+      <div class="logo"><img src="public/assets/images/Lays_brand_logo.png" alt=""></div>
+      <h1>Do Us a Flavour - Configurator</h1>
+    </header>
 
-    <div>
-      <label>Smaak:</label>
-      <select id="flavour">
-        <option value="Paprika">Paprika</option>
-        <option value="Naturel">Naturel</option>
-        <option value="Sweet Chili">Sweet Chili</option>
-      </select>
-    </div>
+    <main class="layout">
+      <section class="config-panel">
+        <h2>Configureer je zak</h2>
 
-    <div>
-      <label>Kleur zak:</label>
-      <input type="color" id="color" value="#ff0000" />
-    </div>
+        <div class="label">
+          <label>Smaak:</label>
+          <select id="flavour">
+            <option value="Paprika">Paprika</option>
+            <option value="Naturel">Naturel</option>
+            <option value="Sweet Chili">Sweet Chili</option>
+          </select>
+        </div>
 
-    <button id="saveBtn">Verzend configuratie</button>
+        <div class="label">
+          <label>Kleur zak:</label>
+          <input type="color" id="color" value="#ff0000" />
+        </div>
+
+        <div class="label">
+          <label>Spice level:</label> <br>
+          <input type="range" id="spice-level" min="0" max="10" value="5" />
+        </div>
+
+        <button id="saveBtn">Verzend configuratie</button>
+        <p class="hint">
+          Ontwerp je eigen chipzakje en win je eigen smaak!
+        </p>
+      </section>
+
+      <section class="canvas-wrapper">
+        <canvas id="three-canvas"></canvas>
+      </section>
+    </main>
   </div>
-
-  <canvas id="three-canvas"></canvas>
 
   <script type="module" src="/src/main.js"></script>
 </body>
+</html>

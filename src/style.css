@@ -1,96 +1,134 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* ===== Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+/* ===== Page Structure ===== */
+html, body {
+  height: 100%;
+    font-family: "Baloo 2", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 body {
-  margin: 0;
+  overflow: hidden;                 
+  display: flex;                    
+  flex-direction: column;          
+  background: radial-gradient(circle at top, #ffe66b, #ffcc00 40%, #f7f7f7 80%);
+  color: black;
+}
+
+/* ===== Header Branding ===== */
+.header {
+  flex: 0 0 auto;                  
+  background: #ffcc00;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.logo img {
+  height: 140px;
+  width: auto;
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* ===== Main Layout (fills available space) ===== */
+.layout {
+  flex: 1 1 auto;                  
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  overflow: hidden;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
+/* ===== Config Panel ===== */
+.config-panel {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  overflow-y: auto;
+
 }
 
-.card {
-  padding: 2em;
+.config-panel h2 {
+  margin-bottom: 1rem;
+  
 }
 
-.read-the-docs {
-  color: #888;
+.label {
+  font-weight: 600;
+  margin-bottom: 1em;
 }
 
-button {
+.config-panel .form-group {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+input,
+select {
+  padding: 0.2rem 0.2rem;
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  border: 1px solid #ccc;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* ===== Buttons ===== */
+#saveBtn {
+  margin-top: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  border: none;
+  background: #ff1e1e;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#saveBtn:hover {
+  color: #e31818;
+  background-color: #ffcc00;
+  border: 2px solid #e31818;
+}
+
+.hint {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* ===== Canvas Area ===== */
+.canvas-wrapper {
+  width: 100%;
+  height: 100%;                     
+  border-radius: 16px;
+  overflow: hidden;
+  background: #111;
+  position: relative;
+}
+
+#three-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  outline: none;
+}
+
+/* ===== Responsive behavior ===== */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+
+  .config-panel {
+    max-height: 250px;
   }
 }
