@@ -9,13 +9,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap"
-    rel="stylesheet"/>
+    rel="stylesheet"
+  />
 </head>
 
 <body>
   <div id="app">
     <header class="header">
-      <div class="logo"><img src="public/assets/images/Lays_brand_logo.png" alt=""></div>
+      <div class="logo">
+        <img src="public/assets/images/Lays_brand_logo.png" alt="Lay's logo" />
+      </div>
       <h1>Do Us a Flavour - Configurator</h1>
     </header>
 
@@ -38,12 +41,14 @@
         </div>
 
         <div class="label">
-          <label>Spice level:</label> <br>
+          <label>Spice level:</label> <br />
           <input type="range" id="spice-level" min="0" max="10" value="5" />
         </div>
 
         <button id="saveBtn">Verzend configuratie</button>
-        <p class="hint">
+
+        <!-- FEEDBACK VAN DE FLOW KOMT HIER -->
+        <p id="feedback" class="hint">
           Ontwerp je eigen chipzakje en win je eigen smaak!
         </p>
       </section>

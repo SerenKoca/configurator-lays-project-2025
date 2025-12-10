@@ -1,4 +1,4 @@
-import './style.css';
+import "./style.css";
 import * as THREE from "three";
 import axios from "axios";
 import { GUI } from "dat.gui";
@@ -12,6 +12,7 @@ const colorInput = document.getElementById("color");
 const spiceSlider = document.getElementById("spice-level");
 const saveBtn = document.getElementById("saveBtn");
 const canvas = document.getElementById("three-canvas");
+const feedback = document.getElementById("feedback");
 
 // SCENE + CAMERA
 const scene = new THREE.Scene();
@@ -52,14 +53,13 @@ dirLight.shadow.camera.near = 1;
 dirLight.shadow.camera.far = 20;
 scene.add(dirLight);
 
-// MODEL OF BOX
+// MODEL
 let bagMesh;
 const initialColor = new THREE.Color(colorInput.value);
 
-//GLB-model
 const loader = new GLTFLoader();
 loader.load(
-  "/assets/models/bag.glb", 
+  "/assets/models/bag.glb", // zorg dat dit in public/assets/models staat
   (gltf) => {
     bagMesh = gltf.scene;
     bagMesh.traverse((child) => {
@@ -103,7 +103,9 @@ gui
   .add(params, "rotationSpeed", 0, 0.1, 0.001)
   .name("Bag rotation");
 
-// EVENT: kleur zak aanpassen
+// === CONFIGURATIEOPTIES ===
+
+// 1) Kleur zak aanpassen
 colorInput.addEventListener("input", () => {
   if (!bagMesh) return;
   const hex = colorInput.value;
@@ -116,32 +118,84 @@ colorInput.addEventListener("input", () => {
     : (bagMesh.material.color = new THREE.Color(hex));
 });
 
-// EVENT: smaak / spice alleen loggen voor nu
+// 2) Smaak → pose/rotatie + feedback
 flavourSelect.addEventListener("change", () => {
-  console.log("Smaak:", flavourSelect.value);
+  if (!bagMesh) return;
+  const flavour = flavourSelect.value;
+
+  switch (flavour) {
+    case "Paprika":
+      bagMesh.rotation.x = 0;
+      bagMesh.position.x = 0;
+      break;
+    case "Naturel":
+      bagMesh.rotation.x = 0.15;
+      bagMesh.position.x = -0.3;
+      break;
+    case "Sweet Chili":
+      bagMesh.rotation.x = -0.15;
+      bagMesh.position.x = 0.3;
+      break;
+  }
+
+  feedback.textContent = `Je hebt "${flavour}" geselecteerd.`;
 });
 
+// 3) Spice level → lichtkleur + intensiteit
 spiceSlider.addEventListener("input", () => {
-  console.log("Spice level:", spiceSlider.value);
+  const level = Number(spiceSlider.value); // 0–10
+  const t = level / 10; // 0–1
+
+  // Van warm wit naar roder licht
+  const r = 1;
+  const g = 1 - 0.5 * t;
+  const b = 1 - 0.5 * t;
+
+  dirLight.color.setRGB(r, g, b);
+  dirLight.intensity = 1 + 0.5 * t;
+
+  feedback.textContent = `Pittigheid: ${level}/10`;
 });
 
-// naar API posten
+// === BESTEL-FLOW ===
 saveBtn.addEventListener("click", async () => {
   const flavour = flavourSelect.value;
   const color = colorInput.value;
   const spice = spiceSlider.value;
 
+  if (!bagMesh) {
+    feedback.textContent = "Model wordt nog geladen, probeer zo meteen opnieuw.";
+    return;
+  }
+
+  // UI feedback: bezig
+  saveBtn.disabled = true;
+  const oldText = saveBtn.textContent;
+  saveBtn.textContent = "Verzenden...";
+  feedback.textContent = "Je configuratie wordt verzonden...";
+
+  // Klein pulse-effect op de zak
+  bagMesh.scale.set(1.1, 1.1, 1.1);
+
   const payload = {
     name: `Custom bag - ${flavour}`,
     flavour,
+    color,
+    spiceLevel: spice,
   };
 
   try {
     const res = await axios.post(`${API_BASE_URL}/bag`, payload);
-    alert("Configuratie opgeslagen! ID: " + res.data._id);
+    console.log("API response:", res.data);
+    feedback.textContent = `Bestelling ontvangen! ID: ${res.data._id}`;
   } catch (err) {
     console.error(err);
-    alert("Opslaan mislukt.");
+    feedback.textContent = "Er ging iets mis bij het versturen.";
+  } finally {
+    // knop herstellen + zak terug normaliseren
+    saveBtn.disabled = false;
+    saveBtn.textContent = oldText;
+    bagMesh.scale.set(1, 1, 1);
   }
 });
 
