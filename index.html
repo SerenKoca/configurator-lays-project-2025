@@ -26,28 +26,106 @@
       <section class="config-panel">
         <h2>Configureer je zak</h2>
 
-        <div class="label">
-          <label>Smaak:</label>
-          <select id="flavour">
-            <option value="Paprika">Paprika</option>
-            <option value="Naturel">Naturel</option>
-            <option value="Sweet Chili">Sweet Chili</option>
-          </select>
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+          <div class="step active" data-step="1">1</div>
+          <div class="step" data-step="2">2</div>
+          <div class="step" data-step="3">3</div>
         </div>
 
-        <div class="label">
-          <label>Kleur zak:</label>
-          <input type="color" id="color" value="#ff0000" />
+        <!-- STEP 1: Brand Name & Style -->
+        <div class="step-content" id="step1">
+          <h3>Stap 1: Jouw Merk</h3>
+          
+          <div class="label">
+            <label>Merknaam:</label>
+            <input type="text" id="brand-name" maxlength="7" placeholder="Bijv. Super Chips" />
+          </div>
+
+          <div class="label">
+            <label>Lettertype:</label>
+            <select id="font-style">
+              <option value="allcaps">ALL CAPS</option>
+              <option value="normal">Normal</option>
+              <option value="classic">Classic</option>
+            </select>
+          </div>
+
+          <div class="label">
+            <label>Kleur zak:</label>
+            <div class="color-palette">
+              <button class="color-btn" data-color="#000000" style="background: #000000; border: 2px solid #ccc;"></button>
+              <button class="color-btn" data-color="#9B59B6" style="background: #9B59B6;"></button>
+              <button class="color-btn active" data-color="#FF0000" style="background: #FF0000;"></button>
+              <button class="color-btn" data-color="#FF8800" style="background: #FF8800;"></button>
+              <button class="color-btn" data-color="#FFFF00" style="background: #FFFF00;"></button>
+              <button class="color-btn" data-color="#0066FF" style="background: #0066FF;"></button>
+              <button class="color-btn" data-color="#FF1493" style="background: #FF1493;"></button>
+              <button class="color-btn" data-color="#00FF00" style="background: #00FF00;"></button>
+            </div>
+          </div>
+
+          <button class="nav-btn" id="nextStep1">Volgende</button>
         </div>
 
-        <div class="label">
-          <label>Spice level:</label> <br />
-          <input type="range" id="spice-level" min="0" max="10" value="5" />
+        <!-- STEP 2: Flavor & Spice -->
+        <div class="step-content hidden" id="step2">
+          <h3>Stap 2: Smaak</h3>
+          
+          <div class="label">
+            <label>Smaaknaam:</label>
+            <input type="text" id="flavour-name" maxlength="30" placeholder="Bijv. Pikante Paprika" />
+          </div>
+
+          <div class="label">
+            <label>Pittigheid: <span id="spice-value">5</span>/10</label>
+            <input type="range" id="spice-level" min="0" max="10" value="5" />
+          </div>
+
+          <div class="nav-buttons">
+            <button class="nav-btn secondary" id="prevStep2">Vorige</button>
+            <button class="nav-btn" id="nextStep2">Volgende</button>
+          </div>
         </div>
 
-        <button id="saveBtn">Verzend configuratie</button>
+        <!-- STEP 3: Image Gallery -->
+        <div class="step-content hidden" id="step3">
+          <h3>Stap 3: Kies een afbeelding</h3>
+          
+          <div class="image-gallery">
+            <div class="gallery-item" data-image="Lays_brand_logo.png">
+              <div class="gallery-placeholder">🌶️</div>
+              <p>Chili</p>
+            </div>
+            <div class="gallery-item" data-image="image2.jpg">
+              <div class="gallery-placeholder">🧀</div>
+              <p>Cheese</p>
+            </div>
+            <div class="gallery-item" data-image="image3.jpg">
+              <div class="gallery-placeholder">🥔</div>
+              <p>Potato</p>
+            </div>
+            <div class="gallery-item" data-image="image4.jpg">
+              <div class="gallery-placeholder">🧂</div>
+              <p>Salt</p>
+            </div>
+            <div class="gallery-item" data-image="image5.jpg">
+              <div class="gallery-placeholder">🌿</div>
+              <p>Herbs</p>
+            </div>
+            <div class="gallery-item" data-image="image6.jpg">
+              <div class="gallery-placeholder">🔥</div>
+              <p>Spicy</p>
+            </div>
+          </div>
 
-        <!-- FEEDBACK VAN DE FLOW KOMT HIER -->
+          <div class="nav-buttons">
+            <button class="nav-btn secondary" id="prevStep3">Vorige</button>
+            <button class="nav-btn" id="saveBtn">Verzend configuratie</button>
+          </div>
+        </div>
+
+        <!-- FEEDBACK -->
         <p id="feedback" class="hint">
           Ontwerp je eigen chipzakje en win je eigen smaak!
         </p>
