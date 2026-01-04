@@ -37,6 +37,7 @@ const nextStep2Btn = document.getElementById("nextStep2");
 const galleryItems = document.querySelectorAll(".gallery-item");
 const prevStep3Btn = document.getElementById("prevStep3");
 const saveBtn = document.getElementById("saveBtn");
+const restartBtn = document.getElementById("restart-btn");
 
 // General
 const canvas = document.getElementById("three-canvas");
@@ -412,6 +413,11 @@ saveBtn.addEventListener("click", async () => {
     });
     console.log("API response:", res.data);
     feedback.textContent = `Bestelling ontvangen! ID: ${res.data._id}`;
+    
+    // Redirect to vote page after successful submission
+    setTimeout(() => {
+      window.location.href = "gallery.html";
+    }, 1500);
   } catch (err) {
     console.error(err);
     feedback.textContent = "Er ging iets mis bij het versturen.";
@@ -421,6 +427,49 @@ saveBtn.addEventListener("click", async () => {
     saveBtn.textContent = oldText;
     bagMesh.scale.set(1, 1, 1);
   }
+});
+
+// RESTART BUTTON
+restartBtn.addEventListener("click", () => {
+  // Reset all configuration
+  configState.brandName = "";
+  configState.fontStyle = "allcaps";
+  configState.bagColor = "#FF0000";
+  configState.flavourName = "";
+  configState.spiceLevel = 5;
+  configState.selectedImage = null;
+  
+  // Reset form inputs
+  brandNameInput.value = "";
+  fontStyleSelect.value = "allcaps";
+  flavourNameInput.value = "";
+  spiceSlider.value = 5;
+  spiceValue.textContent = "5";
+  feedback.textContent = "Ontwerp je eigen chipzakje en win je eigen smaak!";
+  
+  // Reset color button selection
+  colorButtons.forEach(btn => btn.classList.remove("active"));
+  const redBtn = Array.from(colorButtons).find(btn => btn.dataset.color === "#FF0000");
+  if (redBtn) redBtn.classList.add("active");
+  
+  // Reset gallery item selection
+  galleryItems.forEach(item => item.classList.remove("selected"));
+  
+  // Clear the image/logo from the bag
+  if (bottomPart && bottomPart.material) {
+    if (bottomPart.material.map) {
+      bottomPart.material.map.dispose();
+      bottomPart.material.map = null;
+    }
+    bottomPart.material.needsUpdate = true;
+  }
+  
+  // Go back to step 1
+  showStep(1);
+  
+  // Update the bag visualization
+  updateBagColor("#FF0000");
+  updateBrandName("", "allcaps");
 });
 
 // ANIMATIE
