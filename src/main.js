@@ -3,6 +3,7 @@ import * as THREE from "three";
 import axios from "axios";
 import { GUI } from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { initAuth, getToken, isAuthenticated } from "./auth.js";
 
 const API_BASE_URL = "https://api-lays-project-2025.onrender.com";
 
@@ -131,7 +132,7 @@ const gui = new GUI();
 const params = {
   lightIntensity: dirLight.intensity,
   lightY: dirLight.position.y,
-  rotationSpeed: 0.01,
+  rotationSpeed: 0,
 };
 
 gui
@@ -381,6 +382,11 @@ saveBtn.addEventListener("click", async () => {
     return;
   }
 
+  if (!isAuthenticated()) {
+    feedback.textContent = "Je moet ingelogd zijn om je configuratie te verzenden!";
+    return;
+  }
+
   // UI feedback: bezig
   saveBtn.disabled = true;
   const oldText = saveBtn.textContent;
@@ -400,7 +406,10 @@ saveBtn.addEventListener("click", async () => {
   };
 
   try {
-    const res = await axios.post(`${API_BASE_URL}/bag`, payload);
+    const token = getToken();
+    const res = await axios.post(`${API_BASE_URL}/bag`, payload, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
     console.log("API response:", res.data);
     feedback.textContent = `Bestelling ontvangen! ID: ${res.data._id}`;
   } catch (err) {
@@ -432,4 +441,9 @@ window.addEventListener("resize", () => {
   renderer.setSize(width, height);
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
+});
+
+// INITIALIZE AUTH
+document.addEventListener("DOMContentLoaded", () => {
+  initAuth();
 });
