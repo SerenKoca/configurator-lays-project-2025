@@ -34,51 +34,57 @@ export function initAuth() {
 
 // Show/Hide Auth Modal
 function showAuthModal() {
-  authModal.classList.remove("hidden");
+  if (authModal) authModal.classList.remove("hidden");
 }
 
 function hideAuthModal() {
-  authModal.classList.add("hidden");
+  if (authModal) authModal.classList.add("hidden");
 }
 
 function showLogoutBtn() {
-  logoutBtn.classList.remove("hidden");
+  if (logoutBtn) logoutBtn.classList.remove("hidden");
 }
 
 function hideLogoutBtn() {
-  logoutBtn.classList.add("hidden");
+  if (logoutBtn) logoutBtn.classList.add("hidden");
 }
 
 // Switch between Login and Register
 function switchToRegister() {
   isLoginMode = false;
-  authTitle.textContent = "Register";
-  loginForm.classList.add("hidden");
-  registerForm.classList.remove("hidden");
-  authToggle.innerHTML = 'Already have an account? <a href="#login">Login here</a>';
-  authMessage.textContent = "";
-  authMessage.classList.remove("error", "success");
+  if (authTitle) authTitle.textContent = "Register";
+  if (loginForm) loginForm.classList.add("hidden");
+  if (registerForm) registerForm.classList.remove("hidden");
+  if (authToggle) authToggle.innerHTML = 'Already have an account? <a href="#login">Login here</a>';
+  if (authMessage) {
+    authMessage.textContent = "";
+    authMessage.classList.remove("error", "success");
+  }
 }
 
 function switchToLogin() {
   isLoginMode = true;
-  authTitle.textContent = "Login";
-  registerForm.classList.add("hidden");
-  loginForm.classList.remove("hidden");
-  authToggle.innerHTML = "Don't have an account? <a href=\"#register\">Register here</a>";
-  authMessage.textContent = "";
-  authMessage.classList.remove("error", "success");
+  if (authTitle) authTitle.textContent = "Login";
+  if (registerForm) registerForm.classList.add("hidden");
+  if (loginForm) loginForm.classList.remove("hidden");
+  if (authToggle) authToggle.innerHTML = "Don't have an account? <a href=\"#register\">Register here</a>";
+  if (authMessage) {
+    authMessage.textContent = "";
+    authMessage.classList.remove("error", "success");
+  }
 }
 
 // Show Message
 function showMessage(text, isError = false) {
+  if (!authMessage) return;
   authMessage.textContent = text;
   authMessage.classList.remove("error", "success");
   authMessage.classList.add(isError ? "error" : "success");
 }
 
 // Login Handler
-loginForm.addEventListener("submit", async (e) => {
+if (loginForm) {
+  loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const email = loginEmail.value.trim();
@@ -114,9 +120,11 @@ loginForm.addEventListener("submit", async (e) => {
     console.error("Login error:", err);
   }
 });
+}
 
 // Register Handler
-registerForm.addEventListener("submit", async (e) => {
+if (registerForm) {
+  registerForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const username = registerUsername.value.trim();
@@ -163,9 +171,11 @@ registerForm.addEventListener("submit", async (e) => {
     showMessage(errorMsg, true);
   }
 });
+}
 
 // Toggle between Login and Register
-authToggle.addEventListener("click", (e) => {
+if (authToggle) {
+  authToggle.addEventListener("click", (e) => {
   if (e.target.tagName === "A") {
     e.preventDefault();
     const href = e.target.getAttribute("href");
@@ -176,14 +186,17 @@ authToggle.addEventListener("click", (e) => {
     }
   }
 });
+}
 
 // Logout Handler
-logoutBtn.addEventListener("click", () => {
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
   localStorage.removeItem("token");
   showAuthModal();
   hideLogoutBtn();
   switchToLogin();
 });
+}
 
 // Get current token
 export function getToken() {
