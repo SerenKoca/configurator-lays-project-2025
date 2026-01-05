@@ -363,18 +363,12 @@ function renderBagCard(bag, showDelete = false) {
         <span class="bag-color-preview" style="background-color: ${bag.bagColor || "#ccc"}"></span>
       </div>
       <div class="bag-detail">
-        <strong>Font Style:</strong>
-        <span>${bag.fontStyle || "N/A"}</span>
-      </div>
-      <div class="bag-detail">
         <strong>Spice Level:</strong>
         <span class="spice-level">${createSpiceIndicator(bag.spiceLevel)}</span>
       </div>
     </div>
     <div class="vote-section">
-      <div class="vote-count">
-        ❤️ ${votes} ${votes === 1 ? "vote" : "votes"}
-      </div>
+
       <div class="action-buttons">
         ${showDelete && isMyBag ? `
           <button class="delete-btn" data-bag-id="${bag._id}">
