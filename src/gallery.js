@@ -217,8 +217,8 @@ function applyLogoTexture(bottomPart, imageName) {
   // Load the selected image as texture
   const textureLoader = new THREE.TextureLoader();
   
-  // Use the Lays logo as default since that's what the main configurator uses
-  const imagePath = '/assets/images/Lays_brand_logo.png';
+  // Use the selected image or default to Lays logo
+  const imagePath = imageName ? `/assets/images/${imageName}` : '/assets/images/Lays_brand_logo.png';
   
   textureLoader.load(
     imagePath,
