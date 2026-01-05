@@ -401,19 +401,27 @@ function renderBagCard(bag, showDelete = false) {
     voteBtn.textContent = "Voting...";
 
     try {
-      const updatedBag = await voteForBag(bag._id);
-      addVotedBag(bag._id);
+      await voteForBag(bag._id);
       
-      // Update UI
+      // Success - mark as voted and update UI
+      addVotedBag(bag._id);
+      bag.votes = (bag.votes || 0) + 1;
+      
       const voteCountElement = card.querySelector(".vote-count");
-      voteCountElement.textContent = `❤️ ${updatedBag.votes} ${updatedBag.votes === 1 ? "vote" : "votes"}`;
+      if (voteCountElement) {
+        voteCountElement.textContent = `❤️ ${bag.votes} ${bag.votes === 1 ? "vote" : "votes"}`;
+      }
       
       voteBtn.textContent = "✓ Voted";
       voteBtn.classList.add("voted");
+      voteBtn.disabled = true;
     } catch (error) {
+      console.error("Vote error:", error);
+      
+      // Reset button state on error
       voteBtn.disabled = false;
       voteBtn.textContent = "Vote";
-      alert("Failed to vote. Please try again.");
+      voteBtn.classList.remove("voted");
     }
   });
   }

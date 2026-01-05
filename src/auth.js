@@ -136,8 +136,8 @@ if (registerForm) {
     return;
   }
 
-  if (password.length < 6) {
-    showMessage("Password must be at least 6 characters", true);
+  if (password.length < 5) {
+    showMessage("Wachtwoord moet minimaal 5 tekens bevatten", true);
     return;
   }
 
