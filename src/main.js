@@ -245,7 +245,7 @@ function updateLogoImage(imageName) {
   // Load the selected image as texture
   const textureLoader = new THREE.TextureLoader();
   textureLoader.load(
-    `./assets/images/Lays_brand_logo.png`,
+    `./assets/images/${imageName}`,
     (texture) => {
       if (bottomPart.material.map) {
         bottomPart.material.map.dispose();
@@ -265,7 +265,7 @@ function updateLogoImage(imageName) {
     undefined,
     (error) => {
       console.error('Error loading image:', error);
-      feedback.textContent = `Afbeelding niet gevonden: Lays_brand_logo.png`;
+      feedback.textContent = `Afbeelding niet gevonden: ${imageName}`;
     }
   );
 }
@@ -375,6 +375,16 @@ galleryItems.forEach(item => {
 saveBtn.addEventListener("click", async () => {
   if (!bagMesh) {
     feedback.textContent = "Model wordt nog geladen, probeer zo meteen opnieuw.";
+    return;
+  }
+
+  if (!configState.brandName || !configState.brandName.trim()) {
+    feedback.textContent = "Vul eerst een merknaam in!";
+    return;
+  }
+
+  if (!configState.flavourName || !configState.flavourName.trim()) {
+    feedback.textContent = "Vul eerst een smaaknaam in!";
     return;
   }
 

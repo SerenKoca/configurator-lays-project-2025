@@ -1,0 +1,235 @@
+html, body {
+      overflow: auto;
+      height: auto;
+    }
+
+    .gallery-page {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      overflow: auto;
+    }
+
+    .gallery-header {
+      text-align: center;
+      color: white;
+      margin-bottom: 30px;
+    }
+
+    .gallery-header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .gallery-header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: white;
+      color: #667eea;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      transition: transform 0.2s;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .bags-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .bag-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bag-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .bag-3d-preview {
+      width: 100%;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .bag-3d-preview canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .bag-info {
+      margin-bottom: 15px;
+    }
+
+    .bag-info h3 {
+      color: #333;
+      margin-bottom: 8px;
+      font-size: 1.5rem;
+    }
+
+    .bag-detail {
+      display: flex;
+      justify-content: space-between;
+      margin: 5px 0;
+      color: #666;
+    }
+
+    .bag-detail strong {
+      color: #333;
+    }
+
+    .bag-color-preview {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid #ddd;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .vote-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 15px;
+      border-top: 2px solid #f0f0f0;
+    }
+
+    .vote-count {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #667eea;
+    }
+
+    .vote-btn {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .vote-btn:hover:not(:disabled) {
+      transform: scale(1.05);
+    }
+
+    .vote-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .vote-btn.voted {
+      background: #28a745;
+    }
+
+    .loading {
+      text-align: center;
+      color: white;
+      font-size: 1.5rem;
+      padding: 40px;
+    }
+
+    .error {
+      text-align: center;
+      color: #ff4444;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px auto;
+      max-width: 600px;
+    }
+
+    .spice-indicator {
+      display: inline-flex;
+      gap: 2px;
+    }
+
+    .spice-level {
+      color: #ff4444;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .tab-btn {
+      padding: 12px 30px;
+      background: rgba(255, 255, 255, 0.3);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.4);
+      border-color: white;
+    }
+
+    .tab-btn.active {
+      background: white;
+      color: #667eea;
+      border-color: white;
+    }
+
+    .delete-btn {
+      padding: 10px 20px;
+      background: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .delete-btn:hover:not(:disabled) {
+      transform: scale(1.05);
+      background: #c82333;
+    }
+
+    .delete-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+    }
