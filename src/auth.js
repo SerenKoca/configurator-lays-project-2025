@@ -52,10 +52,10 @@ function hideLogoutBtn() {
 // Switch between Login and Register
 function switchToRegister() {
   isLoginMode = false;
-  if (authTitle) authTitle.textContent = "Register";
+  if (authTitle) authTitle.textContent = "Registreren";
   if (loginForm) loginForm.classList.add("hidden");
   if (registerForm) registerForm.classList.remove("hidden");
-  if (authToggle) authToggle.innerHTML = 'Already have an account? <a href="#login">Login here</a>';
+  if (authToggle) authToggle.innerHTML = 'Heb je al een account? <a href="#login">Log hier in</a>';
   if (authMessage) {
     authMessage.textContent = "";
     authMessage.classList.remove("error", "success");
@@ -64,10 +64,10 @@ function switchToRegister() {
 
 function switchToLogin() {
   isLoginMode = true;
-  if (authTitle) authTitle.textContent = "Login";
+  if (authTitle) authTitle.textContent = "Inloggen";
   if (registerForm) registerForm.classList.add("hidden");
   if (loginForm) loginForm.classList.remove("hidden");
-  if (authToggle) authToggle.innerHTML = "Don't have an account? <a href=\"#register\">Register here</a>";
+  if (authToggle) authToggle.innerHTML = "Heb je nog geen account? <a href=\"#register\">Registreer hier</a>";
   if (authMessage) {
     authMessage.textContent = "";
     authMessage.classList.remove("error", "success");
@@ -91,7 +91,7 @@ if (loginForm) {
   const password = loginPassword.value.trim();
 
   if (!email || !password) {
-    showMessage("Please fill in all fields", true);
+    showMessage("Vul alle velden in", true);
     return;
   }
 
@@ -103,7 +103,7 @@ if (loginForm) {
 
     const token = res.data.token;
     localStorage.setItem("token", token);
-    showMessage("Login successful!", false);
+    showMessage("Inloggen geslaagd!", false);
 
     // Clear form
     loginEmail.value = "";
@@ -115,7 +115,7 @@ if (loginForm) {
       showLogoutBtn();
     }, 500);
   } catch (err) {
-    const errorMsg = err.response?.data?.message || "Login failed. Please try again.";
+    const errorMsg = err.response?.data?.message || "Inloggen mislukt. Probeer het opnieuw.";
     showMessage(errorMsg, true);
     console.error("Login error:", err);
   }
@@ -132,7 +132,7 @@ if (registerForm) {
   const password = registerPassword.value.trim();
 
   if (!username || !email || !password) {
-    showMessage("Please fill in all fields", true);
+    showMessage("Vul alle velden in", true);
     return;
   }
 
@@ -142,17 +142,15 @@ if (registerForm) {
   }
 
   try {
-    console.log("Attempting to register with:", { username, email });
     const res = await axios.post(`${API_BASE_URL}/auth/register`, {
       username,
       email,
       password
     });
 
-    console.log("Register response:", res.data);
     const token = res.data.token;
     localStorage.setItem("token", token);
-    showMessage("Registration successful!", false);
+    showMessage("Registratie succesvol!", false);
 
     // Clear form
     registerUsername.value = "";
@@ -167,7 +165,7 @@ if (registerForm) {
   } catch (err) {
     console.error("Register error full response:", err.response);
     console.error("Register error data:", err.response?.data);
-    const errorMsg = err.response?.data?.message || err.response?.data?.error || err.message || "Registration failed. Please try again.";
+    const errorMsg = err.response?.data?.message || err.response?.data?.error || err.message || "Registratie mislukt. Probeer het opnieuw.";
     showMessage(errorMsg, true);
   }
 });
