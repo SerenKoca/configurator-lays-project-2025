@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "https://api-lays-project-2025.onrender.com";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // Auth Modal Elements
 const authModal = document.getElementById("auth-modal");

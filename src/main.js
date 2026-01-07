@@ -5,7 +5,7 @@ import { GUI } from "dat.gui";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { initAuth, getToken, isAuthenticated } from "./auth.js";
 
-const API_BASE_URL = "https://api-lays-project-2025.onrender.com";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 // State Management
 let currentStep = 1;
