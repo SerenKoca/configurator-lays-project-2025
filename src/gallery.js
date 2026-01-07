@@ -15,11 +15,17 @@ let allBags = [];
 let myBags = [];
 let currentUserId = null;
 
-// Store voted bag IDs in localStorage
-const VOTED_BAGS_KEY = "votedBags";
+// Store voted bag IDs in localStorage per user
+const VOTED_BAGS_KEY_PREFIX = "votedBags_";
+
+function getVotedBagsKey() {
+  // Create a unique key for each user
+  // If no user is logged in, use a generic key (for anonymous voting)
+  return currentUserId ? `${VOTED_BAGS_KEY_PREFIX}${currentUserId}` : `${VOTED_BAGS_KEY_PREFIX}anonymous`;
+}
 
 function getVotedBags() {
-  const voted = localStorage.getItem(VOTED_BAGS_KEY);
+  const voted = localStorage.getItem(getVotedBagsKey());
   return voted ? JSON.parse(voted) : [];
 }
 
@@ -27,7 +33,7 @@ function addVotedBag(bagId) {
   const voted = getVotedBags();
   if (!voted.includes(bagId)) {
     voted.push(bagId);
-    localStorage.setItem(VOTED_BAGS_KEY, JSON.stringify(voted));
+    localStorage.setItem(getVotedBagsKey(), JSON.stringify(voted));
   }
 }
 
