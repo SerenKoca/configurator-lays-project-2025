@@ -117,7 +117,7 @@ if (loginForm) {
   } catch (err) {
     const errorMsg = err.response?.data?.message || "Inloggen mislukt. Probeer het opnieuw.";
     showMessage(errorMsg, true);
-    console.error("Login error:", err);
+    console.error("Inlogfout:", err);
   }
 });
 }
@@ -163,8 +163,8 @@ if (registerForm) {
       showLogoutBtn();
     }, 500);
   } catch (err) {
-    console.error("Register error full response:", err.response);
-    console.error("Register error data:", err.response?.data);
+    console.error("Registratie error volledige response:", err.response);
+    console.error("Registratie error data:", err.response?.data);
     const errorMsg = err.response?.data?.message || err.response?.data?.error || err.message || "Registratie mislukt. Probeer het opnieuw.";
     showMessage(errorMsg, true);
   }

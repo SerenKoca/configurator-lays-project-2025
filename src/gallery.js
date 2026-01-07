@@ -359,17 +359,17 @@ function renderBagCard(bag, showDelete = false) {
   card.innerHTML = `
     <div class="bag-3d-preview"></div>
     <div class="bag-info">
-      <h3>${bag.name || "Unnamed Bag"}</h3>
+      <h3>${bag.name || "Onbenoemde Zak"}</h3>
       <div class="bag-detail">
-        <strong>Flavour:</strong>
-        <span>${bag.flavour || "N/A"}</span>
+        <strong>Smaak:</strong>
+        <span>${bag.flavour || "N/B"}</span>
       </div>
       <div class="bag-detail">
-        <strong>Color:</strong>
+        <strong>Kleur:</strong>
         <span class="bag-color-preview" style="background-color: ${bag.bagColor || "#ccc"}"></span>
       </div>
       <div class="bag-detail">
-        <strong>Spice Level:</strong>
+        <strong>Pittigheid:</strong>
         <span class="spice-level">${createSpiceIndicator(bag.spiceLevel)}</span>
       </div>
     </div>
@@ -378,7 +378,7 @@ function renderBagCard(bag, showDelete = false) {
       <div class="action-buttons">
         ${showDelete && isMyBag ? `
           <button class="delete-btn" data-bag-id="${bag._id}">
-            🗑️ Delete
+            🗑️ Verwijderen
           </button>
         ` : `
           <button 
@@ -386,7 +386,7 @@ function renderBagCard(bag, showDelete = false) {
             data-bag-id="${bag._id}"
             ${voted ? "disabled" : ""}
           >
-            ${voted ? "✓ Voted" : "Vote"}
+            ${voted ? "✓ Gestemd" : "Stem"}
           </button>
         `}
       </div>
@@ -404,7 +404,7 @@ function renderBagCard(bag, showDelete = false) {
     if (hasVoted(bag._id)) return;
 
     voteBtn.disabled = true;
-    voteBtn.textContent = "Voting...";
+    voteBtn.textContent = "Aan het stemmen...";
 
     try {
       await voteForBag(bag._id);
@@ -415,18 +415,18 @@ function renderBagCard(bag, showDelete = false) {
       
       const voteCountElement = card.querySelector(".vote-count");
       if (voteCountElement) {
-        voteCountElement.textContent = `❤️ ${bag.votes} ${bag.votes === 1 ? "vote" : "votes"}`;
+        voteCountElement.textContent = `❤️ ${bag.votes} ${bag.votes === 1 ? "stem" : "stemmen"}`;
       }
       
-      voteBtn.textContent = "✓ Voted";
+      voteBtn.textContent = "✓ Gestemd";
       voteBtn.classList.add("voted");
       voteBtn.disabled = true;
     } catch (error) {
-      console.error("Vote error:", error);
+      console.error("Stemmingfout:", error);
       
       // Reset button state on error
       voteBtn.disabled = false;
-      voteBtn.textContent = "Vote";
+      voteBtn.textContent = "Stem";
       voteBtn.classList.remove("voted");
     }
   });
@@ -436,12 +436,12 @@ function renderBagCard(bag, showDelete = false) {
   const deleteBtn = card.querySelector(".delete-btn");
   if (deleteBtn) {
     deleteBtn.addEventListener("click", async () => {
-      if (!confirm("Are you sure you want to delete this bag? This action cannot be undone.")) {
+      if (!confirm("Weet je zeker dat je deze zak wilt verwijderen? Dit kan niet ongedaan gemaakt worden.")) {
         return;
       }
 
       deleteBtn.disabled = true;
-      deleteBtn.textContent = "Deleting...";
+      deleteBtn.textContent = "Aan het verwijderen...";
 
       try {
         await deleteBag(bag._id);
@@ -465,8 +465,8 @@ function renderBagCard(bag, showDelete = false) {
         }, 300);
       } catch (error) {
         deleteBtn.disabled = false;
-        deleteBtn.textContent = "🗑️ Delete";
-        alert("Failed to delete. " + (error.response?.data?.message || error.message));
+        deleteBtn.textContent = "🗑️ Verwijderen";
+        alert("Kon niet verwijderen. " + (error.response?.data?.message || error.message));
       }
     });
   }
@@ -481,7 +481,7 @@ function renderBags(bags, showDelete = false) {
   if (!bags || bags.length === 0) {
     bagsContainer.innerHTML = `
       <div style="grid-column: 1 / -1; text-align: center; color: white; font-size: 1.5rem; padding: 40px;">
-        ${currentTab === "my" ? "You haven't created any bags yet. Go to the configurator to create one!" : "No bags created yet. Be the first to create one!"}
+        ${currentTab === "my" ? "Je hebt nog geen zakken gemaakt. Ga naar de configurator om er een te maken!" : "Nog geen zakken gemaakt. Wees de eerste die er een maakt!"}
       </div>
     `;
     return;
